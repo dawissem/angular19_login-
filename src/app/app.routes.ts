@@ -47,7 +47,7 @@ export const routes: Routes = [
     { path: 'dashboard/reservation/:id/edit', component: EditRComponent },
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'dashboard/reservation/add', component: AddRComponent },
-    { path: 'dashboard/reservation/create', component: AddRComponent },
+    // { path: 'dashboard/reservation/create', component: AddRComponent },
 
   
   ];

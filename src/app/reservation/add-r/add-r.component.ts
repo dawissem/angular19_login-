@@ -1,76 +1,77 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { RouterLink, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-
+import { Router, RouterModule } from '@angular/router';
+import { LivreService } from '../../livre/livre.service';
+import { ReservationService } from '../reservation.service';
+ 
 @Component({
   selector: 'app-add-r',
   templateUrl: './add-r.component.html',
-  imports: [RouterModule, RouterLink, ReactiveFormsModule ,CommonModule],
-
+  standalone: true,
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
   styleUrls: ['./add-r.component.css'],
 })
 export class AddRComponent implements OnInit {
-  form: FormGroup;
-  users: any[] = []; // Array to store users fetched from the backend
+  form!: FormGroup;
+  fb: any;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
-    // Initialize the form
+
+    constructor(
+      public ReservationService: ReservationService,
+      private router: Router
+    ) { }
+        
+ 
+  ngOnInit(): void {
     this.form = this.fb.group({
-      userId: ['', Validators.required], // Dropdown for User ID
-      livreId: ['', Validators.required], // Livre ID
+      userId: [
+        '',
+        [Validators.required, Validators.min(1)], // Validate as positive integer
+      ],
+      livreId: [
+        '',
+        [Validators.required, Validators.min(1)], // Validate as positive integer
+      ],
       dateReservation: ['', Validators.required],
       dateRetour: ['', Validators.required],
-      dateAnnulation: [''],
+      dateAnnulation: [''], // Optional field
     });
   }
 
-  ngOnInit(): void {
-    this.loadUsers(); // Load users when the component initializes
-  }
-
   /**
-   * Fetch users from the backend
-   */
-  loadUsers(): void {
-    const apiUrl = 'http://localhost:9090/projetnourouma/api/users/getAll'; // Adjust this URL
-    this.http.get<any[]>(apiUrl).subscribe(
-      (data) => {
-        this.users = data;
-      },
-      (error) => {
-        console.error('Error fetching users:', error);
-      }
-    );
-  }
-
-  /**
-   * Handle form submission
-   */
-  submit(): void {
-    if (this.form.valid) {
-      console.log('Form Data:', this.form.value);
-      // Submit the form data to your backend API
-      const reservationApiUrl =
-        'http://localhost:9090/projetnourouma/api/reservations/create'; // Adjust the URL
-      this.http.post(reservationApiUrl, this.form.value).subscribe(
-        (response) => {
-          console.log('Reservation created successfully:', response);
-        },
-        (error) => {
-          console.error('Error creating reservation:', error);
-        }
-      );
-    } else {
-      console.log('Form is invalid');
-    }
-  }
-
-  /**
-   * Getter for easy access to form controls
+   * Getter for form controls
    */
   get f() {
     return this.form.controls;
   }
+
+  /**
+   * Handles form submission
+   */
+  // submit(): void {
+  //   if (this.form.valid) {
+  //     console.log('Form Submitted:', this.form.value);
+  //     // Add your logic to handle form submission (e.g., call a service)
+  //   } else {
+  //     console.log('Form is invalid');
+  //   }
+  // }
+
+
+
+
+  submit() {
+    console.log(this.form.value);
+    this.ReservationService.addReservation(this.form.value).subscribe((res: any) => {
+      console.log('reservation created successfully!');
+      this.router.navigateByUrl('/dashboard/reservation/index-r');
+     });
+  }
+
+
+
+
+
+  
 }

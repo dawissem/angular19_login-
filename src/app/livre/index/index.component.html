@@ -1,11 +1,45 @@
 <app-sidebar></app-sidebar>
 <div class="container">
     <h1>Gestion des Livres</h1>
-    
+
+    <!-- Search Filters -->
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Rechercher par Titre..." 
+                [(ngModel)]="searchTitre" 
+                (input)="onSearch()"
+            />
+        </div>
+        <div class="col-md-4">
+            <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Rechercher par ISBN..." 
+                [(ngModel)]="searchIsbn" 
+                (input)="onSearch()"
+            />
+        </div>
+        <div class="col-md-4">
+            <select 
+              class="form-control" 
+              [(ngModel)]="searchCategorie" 
+              (change)="onSearch()"
+            >
+              <option value="">-- Filtrer par Catégorie --</option>
+              <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+            </select>
+          </div>
+    </div>
+
+    <!-- Create New Book Button -->
     <div class="d-flex justify-content-end mb-3">
         <a routerLink="/dashboard/livre/create" class="btn btn-success">Créer un Nouveau Livre</a>
     </div>
-      
+
+    <!-- Table -->
     <table class="table table-striped">
         <thead>
             <tr>
@@ -18,7 +52,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let livre of livres">
+            <tr *ngFor="let livre of filteredLivres">
                 <td>{{ livre.id }}</td>
                 <td>{{ livre.titre }}</td>
                 <td>{{ livre.isbn }}</td>

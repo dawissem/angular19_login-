@@ -15,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
    
   imports: [
     CommonModule,
-    RouterModule, SidebarComponent,RouterLink ,AddRComponent,EditRComponent,ViewRComponent,IndexRComponent
+    RouterModule, SidebarComponent,RouterLink ,AddRComponent,EditRComponent,IndexRComponent
   ]
 })
 export class ReservationModule { }

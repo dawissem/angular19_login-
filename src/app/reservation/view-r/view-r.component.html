@@ -1,1 +1,36 @@
-<p>view-r works!</p>
+  
+    <a routerLink="/dashboard/reservation/index-r" class="btn btn-primary">Retour</a>
+  
+    <div>
+      <strong>ID :</strong>
+      <p>{{ reservation.id }}</p>
+    </div>
+  
+    <div>
+      <strong>Utilisateur (ID) :</strong>
+      <p>{{ reservation.reservationId }}</p>
+    </div>
+  
+    <div>
+      <strong>Livre (ID) :</strong>
+      <p>{{ reservation.reservationId }}</p>
+    </div>
+  
+    <div>
+      <strong>Date de Réservation :</strong>
+      <p>{{ reservation.dateReservation | date: 'dd/MM/yyyy' }}</p>
+    </div>
+  
+    <div>
+      <strong>Date de Retour :</strong>
+      <p>{{ reservation.dateRetour | date: 'dd/MM/yyyy' }}</p>
+    </div>
+  
+    <div>
+      <strong>Date d'Annulation :</strong>
+      <p>
+        {{ reservation.dateAnnulation ? (reservation.dateAnnulation | date: 'dd/MM/yyyy') : 'Non Annulée' }}
+      </p>
+    </div>
+  
+  

@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { Reservation, ReservationService } from '../../services/reservation.service';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from "../../sidebar/sidebar.component";
 import { AddRComponent } from '../add-r/add-r.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Reservation, ReservationService } from '../reservation.service';
 
 @Component({
   selector: 'app-index-r',
   templateUrl: './index-r.component.html',
   styleUrls: ['./index-r.component.css'], // Fixed typo
   standalone: true,
-  imports: [CommonModule,RouterLink,ReactiveFormsModule , AddRComponent, SidebarComponent],
+  imports: [CommonModule,RouterLink,ReactiveFormsModule , SidebarComponent],
 
 
 })

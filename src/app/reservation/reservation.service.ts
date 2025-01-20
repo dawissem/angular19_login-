@@ -14,6 +14,9 @@ export interface Reservation {
   providedIn: 'root',
 })
 export class ReservationService {
+  find(id: string) {
+    throw new Error('Method not implemented.');
+  }
   private baseUrl = 'http://localhost:9090/projetnourouma/api/reservation';
 
   constructor(private http: HttpClient) {}
